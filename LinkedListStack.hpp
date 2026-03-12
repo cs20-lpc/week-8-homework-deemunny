@@ -23,7 +23,7 @@ private:
     void copy(const LinkedListStack<T>&);
 public:
         public:
-        // constructor with the maximum size as the argument
+        // constructor 
         LinkedListStack();
 
         // copy constructor
