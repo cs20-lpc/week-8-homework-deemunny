@@ -25,7 +25,7 @@ template <typename T>
 void LinkedListStack<T>::clear() {
     // TO DO: Delete all the elements in the stack
     while (top) {
-        Node* delMe = top;
+        Node<T>* delMe = top;
         top = delMe->next;
         delete delMe;
         --this->length;
@@ -35,14 +35,14 @@ void LinkedListStack<T>::clear() {
 template <typename T>
 void LinkedListStack<T>::copy(const LinkedListStack<T>& copyObj) {
     // TO DO: Implement copy 
-    Node* curr = copyObj.top;
+    Node<T>* curr = copyObj.top;
     while (curr) {
         push(curr->data);
         curr = curr->next;
     }
 
-    Node* prev = nullptr;
-    Node* next = nullptr;
+    Node<T>* prev = nullptr;
+    Node<T>* next = nullptr;
     curr = top;
     
     while (curr) {
@@ -80,7 +80,7 @@ void LinkedListStack<T>::pop() {
         return;
     }
     cout << "Popping data " << top->data << endl;
-    Node* delMe = top;
+    Node<T>* delMe = top;
     top = top->next;
     delete delMe;
     --this->length;
@@ -89,7 +89,7 @@ void LinkedListStack<T>::pop() {
 template <typename T>
 void LinkedListStack<T>::push(const T& elem) {
     // TO DO: Implement push
-    Node* newNode = new Node(elem, top);
+    Node<T>* newNode = new Node(elem, top);
     top = newNode;
     ++this->length;
 }
@@ -97,7 +97,34 @@ void LinkedListStack<T>::push(const T& elem) {
 template <typename T>
 void LinkedListStack<T>::rotate(typename Stack<T>::Direction dir) {
     // TO DO: Implement rotate
+    if (isEmpty() || !top->next) {
+        cout << "Stack is empty, nothing to rotate.";
+        return;
+    }
+    if (dir == this->RIGHT) { // move last to first
+        Node<T>* curr = top;
+        
+        while (curr->next->next) { // get to antepenultimate node (new word. fun.)
+            curr = curr->next;
+        }
 
+        Node<T>* last = curr->next;
+        curr->next-> = nullptr;
+        last->next = top;
+        top = last;
+    }
+    if (dir == this->LEFT) {  // move first to last
+        Node<T>* first = top;
+        top = top->next;
+
+        Node<T>* curr = top;
+        while (curr->next) {  // find last node
+            curr = curr->next;
+        }
+
+        curr->next = first;
+        first->next = nullptr;
+    }
 }
 
 template <typename T>
