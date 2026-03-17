@@ -89,7 +89,8 @@ void LinkedListStack<T>::pop() {
 template <typename T>
 void LinkedListStack<T>::push(const T& elem) {
     // TO DO: Implement push
-    Node<T>* newNode = new Node(elem, top);
+    Node<T>* newNode = new Node<T>(elem);
+    newNode->next = top;
     top = newNode;
     ++this->length;
 }
@@ -109,7 +110,7 @@ void LinkedListStack<T>::rotate(typename Stack<T>::Direction dir) {
         }
 
         Node<T>* last = curr->next;
-        curr->next-> = nullptr;
+        curr->next = nullptr;
         last->next = top;
         top = last;
     }
